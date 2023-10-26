@@ -1,6 +1,9 @@
 const express = require("express");
-const router = express.Router();
+const contactRouter = express.Router();
+const  createMassage = require("../controllers/contact");
 
-router.get("/contact", (req, res) => res.json({ res: "success" }));
+contactRouter.post("/contact", (req, res) => {
+  createMassage(req, res);
+});
 
-module.exports = router;
+module.exports = contactRouter;

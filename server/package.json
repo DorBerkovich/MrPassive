@@ -6,15 +6,18 @@
   "scripts": {
     "srart": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cleandb": "npx prisma db push --force-reset"
   },
   "author": "Dor",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "prisma": "^5.5.2"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "dotenv": "^16.3.1"
+    "@prisma/client": "^5.5.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
   }
 }

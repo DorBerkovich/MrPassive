@@ -1,8 +1,10 @@
 const express = require("express");
 const server = express();
-const contactRout = require("./routes/contact");
+const { contactRouter, signupRouter, adminRouter } = require("./routes/allRouters");
 
-server.use(express.json())
-server.use(contactRout);
+server.use(express.json());
+server.use(contactRouter);
+server.use(signupRouter);
+server.use(adminRouter);
 
 module.exports = server;
