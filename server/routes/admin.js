@@ -3,7 +3,7 @@ const adminRouter = express.Router();
 const { getAllMassages } = require("../controllers/admin");
 
 
-adminRouter.get("/admin", (req, res) => {
+adminRouter.get("/", (req, res) => {
     getAllMassages(req, res);
   });
 

@@ -14,7 +14,7 @@ model MassagesToMe {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   massage   String
-  user      Users     @relation(fields: [userId], references: [id])
+  user      Users    @relation(fields: [userId], references: [id])
   userId    Int
 }
 
@@ -22,6 +22,7 @@ model Users {
   id           Int            @id @default(autoincrement())
   name         String
   email        String         @unique
+  password     String
   isAdmin      Boolean        @default(false)
   massagesToMe MassagesToMe[]
   // protfolio

@@ -1,6 +1,10 @@
 // only admin can see this component
-export default function Admin() {
+import React from 'react'
+
+const Admin = () => {
   return (
     <div>Admin</div>
   )
 }
+
+export default Admin

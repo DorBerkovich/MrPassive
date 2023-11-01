@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import FormInput from "../utils/FormInput";
+import { postMassage } from "../../api/api";
 
 export default function Contact() {
-  const [userText, setUserText] = useState("");
+  const [massage, setMassage] = useState("");
   const navigate = useNavigate();
+  const userId = 1;
 
   const handleChange = (event) => {
-    setUserText(event.target.value);
+    setMassage(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post();
+    postMassage(massage, userId);
     navigate("/protfolio");
   };
 
@@ -20,13 +22,10 @@ export default function Contact() {
     <div>
       <h2>tell me what you think</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={userText}
-          minLength={2}
-          maxLength={200}
-          placeholder="hey dor..."
-          onChange={handleChange}
+        <FormInput
+          text={massage}
+          setText={setMassage}
+          placeHolder={"Tell me what you think..."}
         />
         <button type="submit"> send </button>
       </form>
