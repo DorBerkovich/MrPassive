@@ -2,6 +2,7 @@ const prisma = require("../utils/prismaClient");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const ONE_DAY = 24 * 60 * 60 * 1000;
 
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
@@ -41,7 +42,9 @@ const handleLogin = async (req, res) => {
         refreshToken,
       },
     });
-    
+
+    res.json({ acceessToken }).cookie("jwt", refreshToken, { maxAge: ONE_DAY, httpOnly: true });
+
   } catch (e) {
     console.log(`error: ${e}`);
     return res.status(401).json({
