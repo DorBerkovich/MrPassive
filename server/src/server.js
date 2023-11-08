@@ -1,7 +1,7 @@
 const express = require("express");
 const server = express();
 const cors = require("cors");
-const requesLogger = require("./middleware/requestLogger");
+const { verifyJwt, requestLogger } = require("./middlewares/allMiddlewares");
 const {
   contactRouter,
   signupRouter,
@@ -10,10 +10,13 @@ const {
 
 server.use(cors());
 server.use(express.json());
-server.use(requesLogger);
+server.use(requestLogger);
 
 server.use("/contact", contactRouter);
 server.use("/signup", signupRouter);
+
+// limited access
+server.use(verifyJwt);
 server.use("/admin", adminRouter);
-// git test
+
 module.exports = server;

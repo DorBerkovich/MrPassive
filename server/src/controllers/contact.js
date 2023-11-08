@@ -1,7 +1,7 @@
 const prisma = require("../utils/prismaClient");
 
 const createMassage = async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   const userId = Number(req.params.id);
   const { massage } = req.body;
   await prisma.massagesToMe.create({
