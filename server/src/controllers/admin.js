@@ -1,16 +1,7 @@
-const prisma = require("../utils/prismaClient");
+const { getMassagesFromDB } = require("../services/admin");
 
-const getAllMassages = async (req, res) => {
-  const allMassages = await prisma.massagesToMe.findMany({
-    include: {
-      user: {
-        select: {
-          name: true,
-          email: true,
-        },
-      },
-    },
-  });
+const getAllMassages = (req, res) => {
+  const allMassages = getMassagesFromDB();
   res.status(200).json({ res: "success", allMassages });
 };
 

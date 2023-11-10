@@ -1,15 +1,11 @@
-const prisma = require("../utils/prismaClient");
+const { saveMassage, findUserBy } = require("../services/contact");
 
-const createMassage = async (req, res) => {
+const createMassage = (req, res) => {
   console.log(req.body);
-  const userId = Number(req.params.id);
+  const { email } = req.userInfo;
+  const userId = findUserBy(email).userId;
   const { massage } = req.body;
-  await prisma.massagesToMe.create({
-    data: {
-      massage,
-      userId,
-    },
-  });
+  saveMassage(massage, userId);
   res.status(200).json({ res: "success" });
 };
 

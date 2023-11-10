@@ -1,17 +1,17 @@
-const prisma = require("../src/utils/prismaClient");
+const { findUserBy, updateRefreshToken } = require("../services/login");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const ONE_DAY = 24 * 60 * 60 * 1000;
+const {
+  ACCESS_TOKEN_EXPIRES_IN,
+  REFRESH_TOKEN_EXPIRES_IN,
+  COOKIE_EXPIRES_IN,
+} = require("../utils/authentication");
 
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await prisma.users.findUnique({
-      where: {
-        email,
-      },
-    });
+    const user = findUserBy(email);
     if (!user) throw "invalid email";
 
     const match = await bcrypt.compare(password, user.passwordHash);
@@ -23,27 +23,21 @@ const handleLogin = async (req, res) => {
     };
 
     const acceessToken = jwt.sign(userInfo, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "30s",
+      expiresIn: ACCESS_TOKEN_EXPIRES_IN,
     });
 
     const refreshToken = jwt.sign(userInfo, process.env.REFRESH_TOKEN_SECRET, {
-      expiresIn: "1d",
+      expiresIn: REFRESH_TOKEN_EXPIRES_IN,
     });
 
-    await prisma.users.update({
-      where: {
-        email,
-      },
-      data: {
-        refreshToken,
-      },
-    });
-<<<<<<< HEAD:server/src/controllers/login.js
-=======
+    updateRefreshToken(email, refreshToken);
 
-    res.json({ acceessToken }).cookie("jwt", refreshToken, { maxAge: ONE_DAY, httpOnly: true });
-
->>>>>>> 5aa09b7bdd9582a32b72e7c47c3f1b041cece209:server/controllers/login.js
+    res
+      .json({ acceessToken })
+      .cookie("jwt", refreshToken, {
+        maxAge: COOKIE_EXPIRES_IN,
+        httpOnly: true,
+      });
   } catch (e) {
     console.log(`error: ${e}`);
     return res.status(401).json({
@@ -51,3 +45,5 @@ const handleLogin = async (req, res) => {
     });
   }
 };
+
+module.exports = handleLogin;
