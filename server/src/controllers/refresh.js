@@ -8,7 +8,7 @@ const handleRefreshToken = (req, res) => {
   if (!cookies?.jwt) return res.sendStatus(401);
   const refreshToken = cookies.jwt;
 
-  const user = findUserBy(refreshToken);
+  const user = findUserBy({ refreshToken });
   if (!user) return res.sendStatus(403);
 
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {

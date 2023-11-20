@@ -1,5 +1,6 @@
 const { saveNewUser } = require("../services/signup");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 require("dotenv").config();
 const {
   ACCESS_TOKEN_EXPIRES_IN,
@@ -19,12 +20,19 @@ const createUser = (req, res) => {
     expiresIn: REFRESH_TOKEN_EXPIRES_IN,
   });
 
-  saveNewUser(name, email, password, refreshToken);
-
-  res.json({ acceessToken }).cookie("jwt", refreshToken, {
-    maxAge: COOKIE_EXPIRES_IN,
-    httpOnly: true,
+  bcrypt.hash(password, 10, (err, hashedPassword) => {
+    if (err) throw err;
+    saveNewUser(name, email, hashedPassword, refreshToken);
   });
+
+  res
+    .cookie("jwt", refreshToken, {
+      maxAge: COOKIE_EXPIRES_IN,
+      secure: true,
+      httpOnly: true,
+      sameSite: "None",
+    })
+    .json({ acceessToken });
 };
 
 module.exports = { createUser };

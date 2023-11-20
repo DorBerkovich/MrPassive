@@ -1,17 +1,24 @@
 const express = require("express");
 const server = express();
 const cors = require("cors");
+const corsOptions = require("./config/corsOptions");
 var cookieParser = require("cookie-parser");
-const { verifyJwt, requestLogger } = require("./middlewares/allMiddlewares");
+const {
+  verifyJwt,
+  requestLogger,
+  credentials,
+} = require("./middlewares/allMiddlewares");
 const {
   contactRouter,
   signupRouter,
   adminRouter,
   refreshRouter,
   logoutRouter,
+  loginRouter,
 } = require("./routes/allRouters");
 
-server.use(cors());
+server.use(credentials);
+server.use(cors(corsOptions));
 server.use(express.json());
 server.use(requestLogger);
 server.use(cookieParser());
@@ -19,6 +26,7 @@ server.use(cookieParser());
 server.use("/signup", signupRouter);
 server.use("/refresh", refreshRouter);
 server.use("/logout", logoutRouter);
+server.use("/login", loginRouter);
 
 // limited access
 server.use(verifyJwt);

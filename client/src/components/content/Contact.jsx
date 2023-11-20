@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FormInput from "../utils/FormInput";
 import { postMassage } from "../../api/api";
 
 export default function Contact() {
@@ -22,11 +21,7 @@ export default function Contact() {
     <div>
       <h2>tell me what you think</h2>
       <form onSubmit={handleSubmit}>
-        <FormInput
-          text={massage}
-          setText={setMassage}
-          placeHolder={"Tell me what you think..."}
-        />
+        
         <button type="submit"> send </button>
       </form>
     </div>

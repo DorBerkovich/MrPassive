@@ -11,10 +11,10 @@ const {
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = findUserBy(email);
+    const user = await findUserBy({ email });
     if (!user) throw "invalid email";
 
-    const match = await bcrypt.compare(password, user.passwordHash);
+    const match = await bcrypt.compare(password, user.password);
     if (!match) throw "invalid password";
 
     const userInfo = {
@@ -33,11 +33,13 @@ const handleLogin = async (req, res) => {
     updateRefreshToken(email, refreshToken);
 
     res
-      .json({ acceessToken })
       .cookie("jwt", refreshToken, {
         maxAge: COOKIE_EXPIRES_IN,
+        secure: true,
         httpOnly: true,
-      });
+        sameSite: "None",
+      })
+      .json({ acceessToken });
   } catch (e) {
     console.log(`error: ${e}`);
     return res.status(401).json({

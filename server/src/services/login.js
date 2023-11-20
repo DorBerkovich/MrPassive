@@ -1,10 +1,13 @@
 const prisma = require("../utils/prismaClient");
 
+// gets an object: {email: d@d}
 const findUserBy = async (...params) => {
+  userInfo = params.reduce((prevObj, param) => {
+    return { ...prevObj, ...param };
+  }, {});
+
   const user = await prisma.users.findUnique({
-    where: {
-      ...params,
-    },
+    where: userInfo,
   });
 
   return user;

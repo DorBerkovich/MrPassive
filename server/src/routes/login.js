@@ -6,4 +6,4 @@ loginRouter.post("/", (req, res) => {
   handleLogin(req, res);
 });
 
-module.exports = signupRouter;
+module.exports = loginRouter;

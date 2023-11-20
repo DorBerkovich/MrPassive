@@ -4,8 +4,8 @@ require("dotenv").config();
 
 const verifyJwt = (req, res, next) => {
   const authHeader = req.get("authorization");
-  console.log(authHeader);
-  if (!authHeader) res.sendStatus(401);
+  console.log("authHeader:", authHeader);
+  if (!authHeader?.startsWith("Bearer ")) res.sendStatus(401);
 
   const token = tokenFrom(authHeader);
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {

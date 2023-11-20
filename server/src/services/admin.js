@@ -1,18 +1,19 @@
 const prisma = require("../utils/prismaClient");
+const { findUserBy } = require("./login")
 
 const getMassagesFromDB = async () => {
-    const allMassages = await prisma.massagesToMe.findMany({
-        include: {
-          user: {
-            select: {
-              name: true,
-              email: true,
-            },
-          },
+  const allMassages = await prisma.massagesToMe.findMany({
+    include: {
+      user: {
+        select: {
+          name: true,
+          email: true,
         },
-      });
+      },
+    },
+  });
 
-      return allMassages
+  return allMassages;
 };
 
-module.exports = { getMassagesFromDB };
+module.exports = { getMassagesFromDB, findUserBy };
