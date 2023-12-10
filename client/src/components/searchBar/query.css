@@ -1,11 +1,11 @@
-.searchBar {
+.query {
   display: flex;
   align-items: center;
   line-height: 0;
   position: relative;
 }
 
-.searchBar input {
+.query input {
   margin: 0;
   padding-left: 2.25rem;
   width: 100%;

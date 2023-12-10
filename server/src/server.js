@@ -15,6 +15,7 @@ const {
   refreshRouter,
   logoutRouter,
   loginRouter,
+  searchBarRouter,
 } = require("./routes/allRouters");
 
 server.use(credentials);
@@ -27,6 +28,7 @@ server.use("/signup", signupRouter);
 server.use("/refresh", refreshRouter);
 server.use("/logout", logoutRouter);
 server.use("/login", loginRouter);
+server.use("/searchBar", searchBarRouter);
 
 // limited access
 server.use(verifyJwt);

@@ -6,11 +6,17 @@ const yahooFinance = require("yahoo-finance2").default; // NOTE the .default
  */
 const printStockData = async (symbol) => {
   try {
-    const data = await yahooFinance.search(symbol);
+    const data = await yahooFinance.search(symbol, {
+      quotesCount: 5,
+      newsCount: 0,
+      enableNavLinks: false,
+      enableCb: false,
+      enableEnhancedTrivialQuery: false,
+    });
     console.log(data);
   } catch (e) {
     console.error(e);
   }
 };
 
-const res = printStockData("A");
+const res = printStockData("te");

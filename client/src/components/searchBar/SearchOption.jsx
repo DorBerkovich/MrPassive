@@ -1,8 +1,6 @@
-import "./searchOption.css"
-const SearchOption = ({stockSymbol}) => {
-  return (
-    <input className="searchOption" value={stockSymbol} readOnly/>
-  )
-}
+import "./searchOption.css";
+const SearchOption = ({ symbol, shortname }) => {
+  return <input className="searchOption" value={`${symbol} | ${shortname}`} readOnly />;
+};
 
-export default SearchOption
+export default SearchOption;

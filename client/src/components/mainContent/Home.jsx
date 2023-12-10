@@ -1,5 +1,5 @@
 import React from "react";
-import SearchBarContainer from "../searchBar/SearchBarContainer";
+import SearchBarContainer from "../searchBar/SearchBar";
 
 const Home = () => {
   return (
