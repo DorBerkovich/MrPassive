@@ -1,13 +1,12 @@
 const prisma = require("../utils/prismaClient");
-const { findUserBy } = require("./login");
 
-const saveMassage = async (massage, userId) => {
+const saveMassage = async (massage, email) => {
   await prisma.massagesToMe.create({
     data: {
       massage,
-      userId,
+      user: { connect: { email } },
     },
   });
 };
 
-module.exports = { saveMassage, findUserBy };
+module.exports = { saveMassage };

@@ -2,7 +2,7 @@ const express = require("express");
 const contactRouter = express.Router();
 const  createMassage = require("../controllers/contact");
 
-contactRouter.post("/:id", (req, res) => {
+contactRouter.post("/", (req, res) => {
   createMassage(req, res);
 });
 

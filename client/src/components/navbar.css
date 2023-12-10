@@ -1,0 +1,35 @@
+nav {
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 1rem 1rem 0 1rem;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  background-color: var(--main-bg-color);
+  box-shadow: 0px 5px 7px 0px var(--main-bg-color);
+  gap: 1rem;
+}
+
+.link {
+  text-decoration: none;
+  font-size: 1.25rem;
+  color: black;
+  padding: 0.5rem 1rem;
+  background-color: azure;
+  border-radius: 1.5rem;
+  border: solid transparent;
+}
+
+.link:hover {
+  background-color: var(--main-bg-color);
+  color: var(--main-font-color);
+  border-radius: 1.5rem;
+  border: dashed var(--main-font-color);
+}
+
+.spacial {
+  background-color: var(--main-bg-color);
+  color: var(--main-font-color);
+  border: solid;
+  border-radius: 1.5rem;
+}

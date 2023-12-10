@@ -2,6 +2,7 @@ import { useContext, useState, useEffect, useRef } from "react";
 import { UserInfoContext } from "../contexts";
 import { createUser } from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import "./signup.css";
 
 const NAME_REGEX = /^[a-zA-Z]{2,20}$/;
 const EMAIL_REGEX =
@@ -38,8 +39,9 @@ export default function Signup() {
     }
     try {
       const res = createUser(name, email, password);
+      console.log(res)
       setUserInfo({ name, email });
-      navigate("/protfolio");
+      navigate("/");
     } catch (err) {
       // implement error handling!
       setErrMsg("error");
@@ -47,12 +49,16 @@ export default function Signup() {
   };
 
   return (
-    <section>
+    <section className="signup">
       {errMsg ? <p>{errMsg}</p> : null}
       <h2>Sign up</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name"> your name</label>
+        <label htmlFor="name" className="block">
+          {" "}
+          your name
+        </label>
         <input
+          className="block"
           type="text"
           id="name"
           autoComplete="off"
@@ -63,14 +69,18 @@ export default function Signup() {
           required
         />
         {name && nameFocus && !validName ? (
-          <p>
+          <p className="instruction">
             Only letters allowed. <br />
             minimum 2 up to 20 characters.
           </p>
         ) : null}
 
-        <label htmlFor="email"> your email</label>
+        <label htmlFor="email" className="block">
+          {" "}
+          your email
+        </label>
         <input
+          className="block"
           type="email"
           id="email"
           autoComplete="off"
@@ -78,8 +88,11 @@ export default function Signup() {
           required
         />
 
-        <label htmlFor="password">new password</label>
+        <label htmlFor="password" className="block">
+          new password
+        </label>
         <input
+          className="block"
           type="password"
           id="password"
           onChange={(e) => setPassword(e.target.value)}
@@ -88,7 +101,7 @@ export default function Signup() {
           required
         />
         {password && passwordFocus && !validPassword ? (
-          <p>Minimum 4 characters.</p>
+          <p className="instruction">Minimum 4 characters.</p>
         ) : null}
 
         <button

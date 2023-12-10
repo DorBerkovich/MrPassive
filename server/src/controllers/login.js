@@ -22,7 +22,7 @@ const handleLogin = async (req, res) => {
       email,
     };
 
-    const acceessToken = jwt.sign(userInfo, process.env.ACCESS_TOKEN_SECRET, {
+    const accessToken = jwt.sign(userInfo, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: ACCESS_TOKEN_EXPIRES_IN,
     });
 
@@ -39,7 +39,11 @@ const handleLogin = async (req, res) => {
         httpOnly: true,
         sameSite: "None",
       })
-      .json({ acceessToken });
+      .json({
+        accessToken,
+        name: userInfo.name,
+        isAdminString: user.isAdmin ? "true" : "false",
+      });
   } catch (e) {
     console.log(`error: ${e}`);
     return res.status(401).json({

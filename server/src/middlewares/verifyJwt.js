@@ -4,10 +4,10 @@ require("dotenv").config();
 
 const verifyJwt = (req, res, next) => {
   const authHeader = req.get("authorization");
-  console.log("authHeader:", authHeader);
   if (!authHeader?.startsWith("Bearer ")) res.sendStatus(401);
 
   const token = tokenFrom(authHeader);
+  console.log("authHeader:", token);
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
     if (err) return res.sendStatus(403); // forbidden
 
@@ -15,6 +15,7 @@ const verifyJwt = (req, res, next) => {
       name: decoded.name,
       email: decoded.email,
     };
+    console.log("req.userInfo", req.userInfo);
     next();
   });
 };

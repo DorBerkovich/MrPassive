@@ -1,11 +1,15 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { userLogin } from "../../api/api";
-
+import { authContext } from "../../contexts/AuthProvider";
+import { useLocation, useNavigate } from "react-router-dom";
+import "./login.css";
 
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
 const Login = () => {
+  const { setAuth } = useContext(authContext);
+
   const [email, setEmail] = useState("");
   const emailRef = useRef();
 
@@ -14,6 +18,10 @@ const Login = () => {
 
   const [errMsg, setErrMsg] = useState("");
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
   const validEmail = EMAIL_REGEX.test(email);
   const validPassword = password.length >= 4;
 
@@ -27,8 +35,13 @@ const Login = () => {
       return;
     }
     try {
-      const data = await userLogin(email, password);
-      const userInfo = 
+      const { data } = await userLogin(email, password);
+      const { accessToken, name, isAdminString } = data;
+      const isAdmin = isAdminString === "true";
+      setEmail("");
+      setPassword("");
+      setAuth({ email, name, accessToken, isAdmin });
+      navigate(from, { replace: true });
     } catch (err) {
       const errorText = !err.response
         ? "No server response"
@@ -43,12 +56,17 @@ const Login = () => {
   };
 
   return (
-    <section>
+    <section className="login">
       {errMsg ? <p>{errMsg}</p> : null}
       <h2>Log in</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="email"> your email</label>
+        <label htmlFor="email" className="block">
+          {" "}
+          your email
+        </label>
         <input
+          className="block"
+          value={email}
           type="email"
           id="email"
           autoComplete="off"
@@ -57,8 +75,12 @@ const Login = () => {
           required
         />
 
-        <label htmlFor="password">password</label>
+        <label htmlFor="password" className="block">
+          password
+        </label>
         <input
+          className="block"
+          value={password}
           type="password"
           id="password"
           onChange={(e) => setPassword(e.target.value)}

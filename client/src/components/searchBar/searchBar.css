@@ -1,0 +1,23 @@
+.searchBar {
+  display: flex;
+  align-items: center;
+  line-height: 0;
+  position: relative;
+}
+
+.searchBar input {
+  margin: 0;
+  padding-left: 2.25rem;
+  width: 100%;
+}
+
+.ioIosSearch {
+  position: absolute;
+  margin-left: 0.5rem;
+}
+
+.ioMdSend {
+  right: 0.5rem;
+  position: absolute;
+  margin-left: 0.5rem;
+}

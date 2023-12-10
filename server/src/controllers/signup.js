@@ -12,7 +12,7 @@ const createUser = (req, res) => {
   const { name, email, password } = req.body;
   const userInfo = { name, email };
 
-  const acceessToken = jwt.sign(userInfo, process.env.ACCESS_TOKEN_SECRET, {
+  const accessToken = jwt.sign(userInfo, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: ACCESS_TOKEN_EXPIRES_IN,
   });
 
@@ -32,7 +32,7 @@ const createUser = (req, res) => {
       httpOnly: true,
       sameSite: "None",
     })
-    .json({ acceessToken });
+    .json({ accessToken });
 };
 
 module.exports = { createUser };
