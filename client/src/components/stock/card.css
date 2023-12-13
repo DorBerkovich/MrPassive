@@ -1,0 +1,8 @@
+.card{
+    display: flex;
+    background-color: aqua;
+}
+
+.stockDetails{
+    list-style: none;
+}
