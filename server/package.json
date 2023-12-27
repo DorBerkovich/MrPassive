@@ -7,7 +7,8 @@
     "srart": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "updatedb": "npx prisma db push --force-reset"
+    "updatedb": "npx prisma db push --force-reset",
+    "kill": "npx kill-port 8000"
   },
   "author": "Dor",
   "license": "ISC",

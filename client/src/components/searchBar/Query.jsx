@@ -15,6 +15,8 @@ const Query = ({ query, setQuery, setShowOptions }) => {
   }, []);
 
   const sendQuery = async () => {
+    if (query === "") return;
+
     try {
       const { data: stockData } = await axios.get(
         `/searchBar/stockData/${query}`,
@@ -30,11 +32,21 @@ const Query = ({ query, setQuery, setShowOptions }) => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    e.key === "Enter" && sendQuery();
+  };
+
   return (
     <div>
       <div className="query">
         <IoIosSearch className="ioIosSearch" />
-        <IoMdSend className="ioMdSend" onClick={() => sendQuery()} />
+        <IoMdSend
+          className="ioMdSend"
+          onClick={() => {
+            sendQuery();
+            setQuery("");
+          }}
+        />
         <input
           name="query"
           placeholder="Search for a symbol or a company"
@@ -47,6 +59,7 @@ const Query = ({ query, setQuery, setShowOptions }) => {
             setShowOptions(true);
           }}
           autoComplete="off"
+          onKeyDown={handleKeyDown}
         />
       </div>
     </div>

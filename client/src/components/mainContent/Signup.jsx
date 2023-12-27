@@ -1,5 +1,4 @@
 import { useContext, useState, useEffect, useRef } from "react";
-import { UserInfoContext } from "../contexts";
 import { createUser } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import "./signup.css";

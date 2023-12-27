@@ -13,14 +13,8 @@ const Layout = () => {
         <Outlet />
       </main>
       <Footer />
-      {/* <LogOutButton /> */}
     </div>
   );
-};
-
-const LogOutButton = () => {
-  const { setAuth } = useContext(authContext);
-  return <button onClick={() => setAuth({})}>logout</button>;
 };
 
 export default Layout;

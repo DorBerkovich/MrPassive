@@ -1,8 +1,7 @@
 import React from "react";
 import SearchBarContainer from "../searchBar/SearchBar";
 import StockDataProvider from "../../contexts/StockDataProvider";
-import Card from "../stock/card";
-import useStockData from "../../hooks/useStockData";
+import StockInfo from "../stock/StockInfo";
 
 const Home = () => {
   return (
@@ -10,7 +9,7 @@ const Home = () => {
       <section>
         <p>Home</p>
         <SearchBarContainer />
-        <Card />
+        <StockInfo />
       </section>
     </StockDataProvider>
   );

@@ -5,6 +5,7 @@ const refreshRouter = require("./refresh");
 const logoutRouter = require("./logout");
 const loginRouter = require("./login");
 const searchBarRouter = require("./searchBar");
+const chartsRouter = require("./charts");
 
 module.exports = {
   contactRouter,
@@ -14,4 +15,5 @@ module.exports = {
   logoutRouter,
   loginRouter,
   searchBarRouter,
+  chartsRouter,
 };

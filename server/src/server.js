@@ -16,6 +16,7 @@ const {
   logoutRouter,
   loginRouter,
   searchBarRouter,
+  chartsRouter,
 } = require("./routes/allRouters");
 
 server.use(credentials);
@@ -29,6 +30,7 @@ server.use("/refresh", refreshRouter);
 server.use("/logout", logoutRouter);
 server.use("/login", loginRouter);
 server.use("/searchBar", searchBarRouter);
+server.use("/charts", chartsRouter);
 
 // limited access
 server.use(verifyJwt);
